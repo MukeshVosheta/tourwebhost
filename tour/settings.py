@@ -83,13 +83,14 @@ WSGI_APPLICATION = 'tour.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME':'defaultdb',
-        'USER':'avnadmin',
-        'PASSWORD':'AVNS_PJkUqkw8Qiy8Fnz-UrX',
-        'HOST':'pg-2a8a5dc0-mukeshsutharv.i.aivencloud.com',
-        'PORT':'23584',
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'HOST': os.environ.get('DB_HOST'),
+        'PORT': os.environ.get('DB_PORT'),
     }
 }
+
 
 # DATABASES = {
 #     'default': {
