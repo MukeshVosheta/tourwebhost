@@ -80,23 +80,23 @@ WSGI_APPLICATION = 'tour.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME':'railway',
-#         'USER':'postgres',
-#         'PASSWORD':'Ca5AcE1DbgFCbGCdb3AecdfDcBcbDffa',
-#         'HOST':'roundhouse.proxy.rlwy.net',
-#         'PORT':'16377',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME':'defaultdb',
+        'USER':'avnadmin',
+        'PASSWORD':'AVNS_PJkUqkw8Qiy8Fnz-UrX',
+        'HOST':'pg-2a8a5dc0-mukeshsutharv.i.aivencloud.com',
+        'PORT':'23584',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 
 
