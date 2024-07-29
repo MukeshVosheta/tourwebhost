@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Bookings{% endblock %}
+{% block content %}
+<div class="text-center text-white pb-3">
+    <h1>All Bookings</h1>
+</div>
+<div class="text-center">
+    {% if bookings %}
+    <table border="1" class="text-white b-table">
+        <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Package</th>
+            <th>State</th>
+            <th>date</th>
+            <th>End date</th>
+            <th>Members</th>
+            <th>Price p/p</th>
+            <th>Total Bill</th>
+            <th></th>
+
+
+        </tr>
+        {% for b in bookings %}
+        <tr class="">
+            <td>{{ b.b_user.username }}</td>
+            <td>{{ b.b_email }}</td>
+            <td><a class="packlink" href="{% url 'packageview' b.b_pack.id %} ">{{ b.b_pack.pack_name }}</a></td>
+            <td>{{ b.b_pack.tourplace.state }}</td>
+            <td>{{ b.b_pack.start_date }} to {{ b.b_pack.end_date }}</td>
+            <td>{{ b.b_members }}</td>
+            <td>{{ b.b_pack.pack_price }}</td>
+            <td>{{ b.b_price }}</td>
+            <td><a href="{% url 'cancelbooking' b.id %}" class="btn delete btn-sm shadow btn-danger m-3"
+                    onclick="return del(this);">Cancel</a></td>
+
+
+
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</div>
+{% else %}
+<div class="text-center text-white">
+    <h2 class="m-5">There are No Bookings yet</h2>
+</div>
+{% endif %}
+
+{% endblock %}

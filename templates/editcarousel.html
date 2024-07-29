@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Carousel update{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1 class="text-light">
+        Modify carousel
+    </h1>
+</div>
+
+    
+    <div class="s-form">
+
+    <div class="form-card container mb-3 p-3">
+        <form action="" method="post" enctype="multipart/form-data" onsubmit="return check(this);">
+            {% csrf_token %}
+            {{f.as_p}}
+            <input type="submit" value="Submit" class="btn btn-primary bg-opacity-50 ">
+        </form>
+    </div>
+    <div class="text-center">
+    <p class="text-light"> Delete from Carousel
+    <a href="{% url 'Deletecarousel' m.id %}" class="btn delete btn-sm shadow btn-danger m-3"  onclick="return delCaro(this);">Delete</a>
+</p>
+</div>
+</div>
+
+{% endblock %}

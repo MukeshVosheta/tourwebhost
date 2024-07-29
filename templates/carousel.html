@@ -1,0 +1,15 @@
+
+{% if k %}
+<div class="gallery js-flickity" data-flickity-options='{ "wrapAround": true ,"autoPlay": 3000 , "pauseAutoPlayOnHover": false}'>
+    {% for p in k %}
+    <div class="gallery-cell">
+        <a href="{% url 'tourview' p.t_place.id %}">
+            <img src="{{ p.t_place.placeImage.url }}" alt="connect" srcset="">
+            <div class="oc pt-2 text-center ">
+                <p class="bg">{{p.t_place.state}}</p>
+             </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

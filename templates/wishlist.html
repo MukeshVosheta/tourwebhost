@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}AddTour{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1 class="text-light">
+        Wishlist
+    </h1>
+</div>
+    {% if pack %}
+    <p class="bg-light rounded text-dark ps-4 my-3 shadow h4">Packages</p>
+    <div class="card-bg container  py-2 state-tours shadow  mb-3">
+
+        {% for i in pack %}
+        <div class="pack-card">
+            <div class="pack-img"><a href="{% url 'packageview' i.w_pack.id %}"><img src="{{ i.w_pack.tourplace.placeImage.url }}"
+                        alt="" class="" /></a></div>
+            <div class="title text-center">
+                <h4>{{i.w_pack.pack_name}}</h4>
+                <h6>{{i.w_pack.tourplace}}</h6>
+                <h6>{{i.w_pack.quality}}</h6>
+            </div>
+            <div class="remove-btn">
+                <a href="{% url 'removewish' i.id %}">
+                    <h5>Remove</h5>
+                </a>
+            </div>
+            <div class="price">
+                <a href="{% url 'packageview' i.id %}">
+                    <h5><span>Rs </span>{{i.w_pack.pack_price}}</h5>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="text-center mb-5 mt-3 ">
+        <h4 class="text-light no-data">
+            No pakcages are added to wishlist
+        </h4>
+    </div>
+    {% endif %}
+
+{% endblock %}

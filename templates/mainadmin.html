@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Admin{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1 class="text-light">
+        Admin Page
+    </h1>
+</div>
+
+<div class="row my-5">
+
+    <div class="col-2 text-center">
+        <div class="col-10 container bg-secondary bg-opacity-50 text-light rounded py-2">
+            <a class="btn btn-sm shadow btn-outline-light  my-1" href="{% url 'AddState' %}">Add State</a>
+            <a class="btn btn-sm shadow btn-outline-light  my-1" href="{% url 'AddQuality' %}">Add Quality</a>
+            <a class="btn btn-sm shadow btn-outline-light  my-1" href="{% url 'addtour' %}">Add Tour</a>
+            <a class="btn btn-sm shadow btn-outline-light  my-1" href="{% url 'carousel' %}">Carousal</a>
+            <a class="btn btn-sm shadow btn-outline-light  my-1" href="{% url 'allbookings' %}">Show Bookings</a>
+        </div>
+    </div>
+
+    <div class="col-10 container bg-secondary bg-opacity-50  rounded py-2">
+        <div class="row">
+
+        <div class="col-6">
+            <p class="bg-light rounded bg-opacity-75 text-dark ps-2">States :</p>
+            <div class="temp mb-5 text-center">
+                {% for s in st %}
+                <div class="text-center">
+                    <P class="bg-white p-1 px-2 shadow rounded h6 ">{{s.s_name}}</P>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+        <div class="col-6">
+            <p class="bg-light rounded bg-opacity-75 text-dark ps-2">Quality :</p>
+            <div class="temp mb-5">
+                {% for q in qu %}
+                <div class="text-center">
+                    <P class="bg-white p-1 px-2 shadow rounded h6 ">{{q.q_name}}</P>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+
+        <p class="bg-light rounded bg-opacity-75 text-dark ps-2">Current Tours :</p>
+        <div class="main-tours">
+
+            {% for p in tpm %}
+
+            <div class="tour-card card bg-opacity-25 shadow mt-4">
+                <div class="img-con">
+                    <a href="{% url 'manageplace' p.id %}">
+                        <img src="{{ p.placeImage.url }}" alt="connect" srcset="" class="shadow">
+                    </a>
+                </div>
+
+                <P class="ps-2 pt-2 h6">{{p.state}}</P>
+                <div class="o pt-2">
+                    <p class="bg">{{p.cities}}</p>
+                </div>
+                <a href="{% url 'EditTour' p.id %}" class="btn edit btn-sm shadow btn-secondary">Edit</a>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+
+
+</div>
+
+{% endblock %}

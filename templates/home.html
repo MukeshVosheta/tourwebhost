@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="preloader"><svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"
+  class="lds-ripple" style="background:0 0">
+  <circle cx="50" cy="50" r="4.719" fill="none" stroke="#1d3f72" stroke-width="2">
+    <animate attributeName="r" calcMode="spline" values="0;40" keyTimes="0;1" dur="3" keySplines="0 0.2 0.8 1"
+      begin="-1.5s" repeatCount="indefinite" />
+    <animate attributeName="opacity" calcMode="spline" values="1;0" keyTimes="0;1" dur="3" keySplines="0.2 0 0.8 1"
+      begin="-1.5s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="50" cy="50" r="27.591" fill="none" stroke="#5699d2" stroke-width="2">
+    <animate attributeName="r" calcMode="spline" values="0;40" keyTimes="0;1" dur="3" keySplines="0 0.2 0.8 1"
+      begin="0s" repeatCount="indefinite" />
+    <animate attributeName="opacity" calcMode="spline" values="1;0" keyTimes="0;1" dur="3" keySplines="0.2 0 0.8 1"
+      begin="0s" repeatCount="indefinite" />
+  </circle>
+</svg>
+</div>
+
+<div class="container-fluid">
+  {% include 'carousel.html' %}
+  {% include 'searchbar.html' %}
+
+  <div class="row my-5">
+    <h4 class="text-center text-light w-100">Explore</h4>
+
+    <!-- Sidebar -->
+    <div class="col-lg-2 col-md-3 col-sm-4 col-12">
+      <div class="card-bg container py-2 text-light shadow mb-4">
+        <div class="p-3">
+
+          <h6 class="">Category</h6>
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action  border-0 my-1" id="list-home-list" data-mdb-toggle="list"
+              href="{% url 'home' %}" role="tab" aria-controls="list-home">All</a>
+            {% for c in cat %}
+            <a class="list-group-item list-group-item-action  border-0 my-1" id="list-home-list" data-mdb-toggle="list"
+              href="{% url 'category' c.id %}" role="tab" aria-controls="list-home">{{ c.c_name }}</a>
+            {% endfor %}
+          </div>
+  
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-lg-10 col-md-9 col-sm-8 col-12">
+      <!-- States panel -->
+    {% if tpm %}
+    <div class="card-bg container py-2 text-light shadow">
+      <p class="bg-light rounded text-dark ps-4 shadow h4">States</p>
+  
+      <div class="state-tours">
+        {% for p in tpm %}
+        <a href="{% url 'tourview' p.id %}">
+          <div class="view-card card bg-opacity-25 shadow mt-4">
+            <div class="img-con">
+              <img src="{{ p.placeImage.url }}" alt="connect" srcset="" class="shadow">
+            </div>
+            <P class="on ps-2 pt-2 h5">{{p.state}}</P>
+            <div class="ov pt-2">
+              <p class="bg">{{p.description}}</p>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+
+     {% if place %}
+    <p class="bg-light rounded text-dark ps-4 my-3 shadow h4">Places</p>
+
+    <div class="card-bg container py-2 state-tours shadow  mb-3">
+      {% for i in place %}
+      <div class="place-card text-center">
+        <a href="{% url 'tourview' i.tourplace.id %}">
+          <img src="{{ i.placeImage.url }}" class="img img-responsive">
+          <div class="content">
+            <div class="name">
+              <h5>{{ i.place_name }}</h5>
+            </div>
+            <div class="description">
+              {% for category in i.category.all %}
+              {{ category.c_name }}
+              {% endfor %}
+            </div>
+            <div class="state">
+              {{ i.tourplace.state }}
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+     <!-- Packages -->
+    {% if pack %}
+    <p class="bg-light rounded text-dark ps-4 my-3 shadow h4">Packages</p>
+    <div class="card-bg container py-2 shadow mb-3">
+      <div class="state-tours">
+        {% for i in pack %}
+        <div class="pack-card">
+          <div class="pack-img">
+            <a href="{% url 'packageview' i.id %}">
+              <img src="{{ i.tourplace.placeImage.url }}" alt="" class="" />
+            </a>
+          </div>
+          <div class="title text-center">
+            <h4>{{i.pack_name}}</h4>
+            <h6>{{i.tourplace}}</h6>
+            <h6>{{i.quality}}</h6>
+          </div>
+          <div class="price">
+            <a href="{% url 'packageview' i.id %}">
+              <h5><span>Rs </span>{{i.pack_price}}</h5>
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+  const loader = document.querySelector(".preloader");
+  window.onload = function () {
+    setTimeout(function () {
+      loader.style.opacity = "0";
+      setTimeout(function () {
+        loader.style.display = "none";
+      }, 500);
+    }, 700);
+  }
+
+
+</script>
+{% endblock %}

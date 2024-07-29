@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}AddTour{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1 class="text-light">
+        Add New tour
+    </h1>
+
+</div>
+    <div class="s-form">
+    <div class="form-card container mb-3 p-3">
+        <form action="" method="post" enctype="multipart/form-data" onsubmit="return check(this);" onreset="return confirm_reset(this);">
+            {% csrf_token %}
+            {{f.as_p}}
+            <input type="submit" value="Submit" class="btn btn-info text-white bg-opacity-50 ">
+        <input type="reset" value="Reset" class="btn btn-sm btn-secondary bg-opacity-50 right">
+        </form>
+        
+
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1 class="text-light my-5">
+        Profile
+    </h1>
+</div>
+
+<div class="row p-3 mb-5">
+
+    <div class="col-6 container">
+        <div class="Profile-card pro-card text-light">
+            <h2 class=" title">Account Details</h2>
+            <table class="profile-table">
+                <tr>
+                    <th>Name :</th>
+                    <td>{{ t_user.first_name }}</td>
+                </tr>
+                <tr>
+                    <th>Contact :</th>
+                    <td>{{ t_user.contact_no }}</td>
+                </tr>
+                <tr>
+                    <th>Email :</th>
+                    <td>{{ t_email.email }}</td>
+                </tr>
+                <tr>
+                    <th>age :</th>
+                    <td>{{ t_user.age }}</td>
+                </tr>
+            </table>
+
+
+            <input type="button" onclick="showdiv()" class=" pro-btn m-2 btn btn-info text-light" value="Change">
+        </div>
+    </div>
+
+
+
+
+    <div class="col-4 container" id="profile-div">
+        <div class="mb-5">
+            <div class="form-card container mb-3 p-3">
+                <div class="text-center mb-3 text-secondary">
+                    <h4>Update Details </h4>
+                </div>
+                <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data" onsubmit="return check(this);">
+                    {% csrf_token %}
+                    {{f.as_p}}
+                    <input type="submit" value="Update" class="btn btn-info text-light bg-opacity-50 ">
+                    <input type="button" onclick="divclose()" value="Cancel"
+                        class="btn btn-warning text-light bg-opacity-50 ">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+{% block js %}
+
+<script>
+    function showdiv() {
+        document.getElementById('profile-div').style.display = "block";
+    }
+    function divclose() {
+        document.getElementById('profile-div').style.display = "none"
+    }
+
+</script>
+
+{% endblock %}

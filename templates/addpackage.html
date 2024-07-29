@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}AddPackage{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1 class="text-light">
+        Add Package
+    </h1>
+</div>
+<div class="s-form">
+
+    <div class="form-card container mb-3 p-3">
+        <form action="" method="post" enctype="multipart/form-data" onsubmit="return vali(this);">
+            {% csrf_token %}
+            {{f.as_p}}
+            <div id="errorMessages" style="color: rgb(153, 1, 1); padding: 10px;"></div>
+
+            <input type="submit" value="Submit" class="btn btn-info text-white bg-opacity-50 ">
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block js %}
+<script>
+    function vali(form) {
+        var packMember = form.pack_member.value;
+        var startDate = new Date(form.start_date.value);
+        var endDate = new Date(form.end_date.value);
+        var packPrice = form.pack_price.value;
+        var errorMessages = "";
+
+        if (packMember > 50) {
+            errorMessages += "Package members cannot be greater than 50. \n";
+        }
+
+        var currentDate = new Date();
+        if (startDate < currentDate) {
+            errorMessages += "Start date cannot be earlier than the current date. \n";
+        }
+
+        if (endDate < startDate) {
+            errorMessages += "End date cannot be earlier than the start date.  \n";
+        }
+
+        if (packPrice > 10000 || packPrice < 1000) {
+            errorMessages += "Package price must be between 1000 and 10000.  \n";
+        }
+
+        if (errorMessages !== "") {
+            document.getElementById("errorMessages").innerText = errorMessages;
+            event.preventDefault();
+            return false;
+        } else {
+            document.getElementById("errorMessages").innerText = "";
+            return confirm('Do you really want to submit the form?');
+        }
+    }
+</script>
+
+
+{% endblock %}

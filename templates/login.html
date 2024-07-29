@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Sign-In{% endblock %}
+
+{% block content %}
+
+<div class="row m-4">
+
+    <div class="col-8">
+        <div class="logdis">
+            <div class="logobg" id="backgif"></div>
+            <div class="logbrand"></div>
+        </div>
+    </div>
+
+    <div class="col-4 ">
+        <div class="card shadow p-3 regi-form">
+            <p class="text-center h3 fw-bold mb-5 mx-1 mx-md-4 mt-4 form-label text-secondary justify-content-center">
+                Login</p>
+
+            <form action="{% url 'Login' %}" method="post" class=" form">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                        <button type="submit" class="btn btn-info text-white me-2">Login</button>
+    
+                    <p class="m-2 " >Not a member? <a href="{% url 'register' %}" class=" text-decoration-none">Register</a></p>
+                
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}

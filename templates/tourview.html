@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}TourView{% endblock %}
+
+{% block content %}
+<div class="tourview">
+    <img src="{{ m.placeImage.url }}" alt="connect" srcset="">
+    <P class="">{{m.state}}</P>
+</div>
+<div class="details">
+    <div class="t">
+        <p class="v-title">State :</p>
+        <P class="deta">{{m.state}}</P>
+    </div>
+    <div class="t">
+        <p class="v-title">Details:</p>
+        <P class="deta">{{m.description}}</P>
+    </div>
+</div>
+
+<div class="moretour">
+    {% for i in all_p %}
+    <div class="mt_sec">
+        <div class="img">
+            <img src="{{ i.placeImage.url }}" alt="connect" srcset="" onclick="openModal('{{ i.placeImage.url }}')">
+        </div>
+        <div class="content">
+            <div class="text-center">
+                <h2 class="title">
+                    {{i.place_name}}
+                </h2>
+            </div>
+
+            <p class="paragraph">{{i.description}} </p>
+            <p class="cate"> category : <span class="cate-details">
+                {% for category in i.category.all %}
+                {{ category.c_name }}
+                {% endfor %}
+            </span>
+            </p>
+            {% if i.source_link %}
+            <iframe class="m-2 container" src="{{i.source_link}}" id="map"  loading="lazy" ></iframe>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% if pack %}
+<div class="card-bg container  py-2 state-tours shadow mt-3 mb-3">
+    {% for i in pack %}
+    <div class="pack-card">
+        <div class="pack-img"><a href="{% url 'packageview' i.id %}"><img src="{{ i.tourplace.placeImage.url }}" alt="" class="" /></a></div>
+        <div class="title text-center">
+        <h4>{{i.pack_name}}</h4>
+        <h6>{{i.tourplace}}</h6>
+        <h6>{{i.quality}}</h6>
+        </div>
+        <div class="price">
+            <a href="{% url 'packageview' i.id %}"><h5><span>Rs </span>{{i.pack_price}}</h5></a>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+{% endif %}
+
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="img01">
+</div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Carousel desk{% endblock %}
+{% block content %}
+<div class="text-center">
+    <h1 class="text-light">
+        Carousal View
+    </h1>
+</div>
+{% include 'carousel.html' %}
+<br>
+<div class="row container">
+
+    <div class="col-3 container">
+        <div class="text-light s-form container bg-secondary bg-opacity-50  rounded py-2 my-4">
+            <form action="{% url 'carousel' %}" method="post">
+                {% csrf_token %}
+                {{ f.as_p }}
+                <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-9 container">
+        <div class="main-tours">
+
+        {% for p in ctp %}
+        <div class="tour-card card bg-opacity-25 shadow mt-4">
+            <div class="img-con">
+                <img src="{{ p.t_place.placeImage.url }}" alt="connect" srcset="" class="shadow">
+            </div>
+            <P class="ps-2 pt-2 h6">{{p.t_place.state}}</P>
+            <div class="o pt-2">
+                <p class="bg">{{p.t_place.cities}}</p>
+            </div>
+            <a href="{% url 'carouseledit' p.id %}" class="btn edit btn-sm shadow btn-secondary">Replace</a>
+        </div>
+        {% endfor %}
+    </div>
+        
+    </div>
+
+</div>
+{% endblock %}

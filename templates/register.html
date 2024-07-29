@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Sign-Up{% endblock %}
+
+{% block content %}
+
+<div class="row m-4 d-flex justify-content-center align-items-center">
+    <div class="col-8 text-white slogan order-1">
+        <h1 class="display-4 mt-100 ml-10">We make your travel goals possible</h1>
+    </div>
+    <div class="col-4 container order-2">
+        <div class="card shadow container p-3 regi-form mx-1 mx-md-4">
+            <p class="text-center h3 fw-bold mb-5 mx-1 mx-md-4 mt-4 form-label text-secondary">Sign up</p>
+        <form action="{% url 'register' %}" method="post" class=""  onsubmit="return check(this);" onreset="return confirm_reset(this);">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-info text-white">Submit</button>
+            <button type="reset" class="btn btn-sm btn-secondary re-btn">Reset</button>
+            <p class="m-2 " >Already a member? <a href="{% url 'Login' %}" class=" text-decoration-none">Sign-In</a></p>
+
+        </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
